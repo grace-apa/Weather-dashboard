@@ -34,6 +34,13 @@ h1 {
   margin: 10px 0 15px 0;
 }
 
+.weather-input .separator {
+  height: 1px;
+  width: 100%;
+  margin: 25px 0;
+  background: #cecece;
+}
+
 .weather-data {
   width: 100%;
 }
@@ -51,4 +58,42 @@ h1 {
 }
 
 .weather-input .location-btn {
+  background: grey;
+  color: white;
+}
+
+.current-weather {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 20px 70px 50px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.current-weather h2 {
+  font-size: 1.7rem;
+}
+
+.weather-data h4 {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.days-forecast h2 {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.weather-cards {
+  display: flex;
+  gap: 20px;
+}
+
+.weather-cards .card {
+  background: grey;
+  color: white;
+  list-style: none;
+  padding: 18px 16px;
+  border-radius: 5px;
 }
