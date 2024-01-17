@@ -10,7 +10,7 @@ const makeWeatherCard = (cityLocation, weatherSelection, index) => {
   if (index === 0) {
     return `<div class="current-weather">
     <div class="details">
-      <h2> ${cityLocation} (${weatherSelection.dt_txt.split("")[0]})</h2>
+      <h2> ${cityLocation} (${weatherSelection.dt_txt.split(" ")[0]})</h2>
       <h4>Temperature: ${(weatherSelection.main.temp - 273.15).toFixed(
         2
       )}°C</h4>
@@ -19,7 +19,7 @@ const makeWeatherCard = (cityLocation, weatherSelection, index) => {
     </div>`;
   } else {
     return `<li class="card">
-    <h3>(${weatherSelection.dt_txt.split("")[0]})</h3>
+    <h3>(${weatherSelection.dt_txt.split(" ")[0]})</h3>
     <img
   src="https://openweathermap.org/img/wn/${
     weatherSelection.weather[0].icon
@@ -34,7 +34,7 @@ const makeWeatherCard = (cityLocation, weatherSelection, index) => {
 };
 
 const getWeatherDetails = (cityLocation, lat, lon) => {
-  const OPENWEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${API_KEY}`;
+  const OPENWEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
   fetch(OPENWEATHER_API_URL)
     .then((res) => res.json())
@@ -74,7 +74,8 @@ const getWeatherDetails = (cityLocation, lat, lon) => {
 const getCityCoordinates = () => {
   const cityLocation = cityInput.value.trim();
   if (!cityLocation) return;
-  const OPENWEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+  //   const OPENWEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+  const OPENWEATHER_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityLocation}&limit=1&appid=${API_KEY}`;
   console.log(cityLocation);
 
   fetch(OPENWEATHER_API_URL)
@@ -85,8 +86,9 @@ const getCityCoordinates = () => {
       const { name, lat, lon } = data[0];
       getWeatherDetails(name, lat, lon);
     })
-    .catch(() => {
-      alert("An error occured while fetching the coordinates");
+    .catch((error) => {
+      console.log(error);
+      //   alert("An error occured while fetching the coordinates");
     });
 };
 
@@ -125,3 +127,43 @@ cityInput.addEventListener(
   "keyup",
   (e) => e.key === "Enter" && getCityCoordinates()
 );
+
+const historyList = document.querySelector(".search-history");
+
+const addToSearchHistory = (city) => {
+  const historyItem = document.createElement("li");
+  historyItem.textContent = city;
+  historyItem.addEventListener("click", () => {
+    cityInput.value = city;
+    getCityCoordinates();
+  });
+  historyList.appendChild(historyItem);
+};
+
+const updateSearchHistory = (city) => {
+  const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+  if (!searchHistory.includes(city)) {
+    searchHistory.push(city);
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    addToSearchHistory(city);
+  }
+};
+
+const loadSearchHistory = () => {
+  const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+  searchHistory.forEach((city) => addToSearchHistory(city));
+};
+
+locationButton.addEventListener("click", getUserCoordinates);
+searchButton.addEventListener("click", () => {
+  getCityCoordinates();
+  updateSearchHistory(cityInput.value.trim());
+});
+cityInput.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    getCityCoordinates();
+    updateSearchHistory(cityInput.value.trim());
+  }
+});
+
+loadSearchHistory();

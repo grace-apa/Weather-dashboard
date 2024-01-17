@@ -6,7 +6,13 @@
 }
 
 h1 {
-  background: rgb(12, 12, 93);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(74, 103, 203, 1) 78%,
+    rgba(14, 1, 1, 1) 100%
+  );
   color: white;
   padding: 18px 0;
   text-align: center;
@@ -95,7 +101,7 @@ h1 {
 }
 
 .weather-cards .card {
-  background: grey;
+  background: rgb(45, 62, 79);
   color: white;
   list-style: none;
   padding: 18px 16px;
@@ -143,4 +149,9 @@ h1 {
   .weather-input {
     width: 100%;
   }
+}
+
+.search-history {
+  background: rgb(155, 153, 153);
+  list-style: none;
 }
