@@ -51,7 +51,7 @@ h1 {
   width: 100%;
 }
 
-.weather-input button {
+.weather-input .search-btn {
   width: 100%;
   padding: 10px 0;
   cursor: pointer;
@@ -64,7 +64,26 @@ h1 {
 }
 
 .weather-input .location-btn {
+  width: 100%;
+  padding: 10px 0;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 4px;
   background: grey;
+  color: white;
+}
+
+.weather-input .search-history-button {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  background: rgb(199, 199, 199);
   color: white;
 }
 
@@ -151,7 +170,11 @@ h1 {
   }
 }
 
-.search-history {
-  background: rgb(155, 153, 153);
-  list-style: none;
+.search-history-container {
+  padding: 10px;
+}
+
+.search-history-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
 }

@@ -3,6 +3,7 @@ const searchButton = document.querySelector(".search-btn");
 const locationButton = document.querySelector(".location-btn");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherDiv = document.querySelector(".weather-cards");
+const historyContainer = document.querySelector(".search-history-container");
 
 const API_KEY = "971a8ff9a55506f06943d101299eb1a4";
 
@@ -128,16 +129,57 @@ cityInput.addEventListener(
   (e) => e.key === "Enter" && getCityCoordinates()
 );
 
-const historyList = document.querySelector(".search-history");
+// const historyList = document.querySelector(".search-history");
+
+// const addToSearchHistory = (city) => {
+//   const historyItem = document.createElement("li");
+//   historyItem.textContent = city;
+//   historyItem.addEventListener("click", () => {
+//     cityInput.value = city;
+//     getCityCoordinates();
+//   });
+//   historyList.appendChild(historyItem);
+// };
+
+// const updateSearchHistory = (city) => {
+//   const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+//   if (!searchHistory.includes(city)) {
+//     searchHistory.push(city);
+//     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+//     addToSearchHistory(city);
+//   }
+// };
+
+// const loadSearchHistory = () => {
+//   const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+//   searchHistory.forEach((city) => addToSearchHistory(city));
+// };
+
+// locationButton.addEventListener("click", getUserCoordinates);
+// searchButton.addEventListener("click", () => {
+//   getCityCoordinates();
+//   updateSearchHistory(cityInput.value.trim());
+// });
+// cityInput.addEventListener("keyup", (e) => {
+//   if (e.key === "Enter") {
+//     getCityCoordinates();
+//     updateSearchHistory(cityInput.value.trim());
+//   }
+// });
+
+// loadSearchHistory();
 
 const addToSearchHistory = (city) => {
-  const historyItem = document.createElement("li");
+  const historyItem = document.createElement("button");
   historyItem.textContent = city;
+  historyItem.classList.add("search-history-button");
   historyItem.addEventListener("click", () => {
     cityInput.value = city;
     getCityCoordinates();
   });
-  historyList.appendChild(historyItem);
+  historyContainer.appendChild(historyItem);
+
+  historyContainer.style.display = "block";
 };
 
 const updateSearchHistory = (city) => {
