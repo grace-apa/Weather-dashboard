@@ -171,10 +171,12 @@ h1 {
 }
 
 .search-history-container {
-  padding: 10px;
+  padding: 15px;
+  background: none;
+  border: none;
 }
 
 .search-history-button {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
